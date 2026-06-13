@@ -2,11 +2,13 @@ package main
 
 import (
 	"ApexTrade/Websocket"
+	"ApexTrade/database"
 	"net/http"
 	"github.com/gin-gonic/gin"
 )
 
 func main(){
+	database.ConnectDB()
 	r:=gin.Default()
 	r.LoadHTMLFiles("index.html")
 
