@@ -15,5 +15,5 @@ message inputData{
 }
 
 message outputData{
-    string action=1;
+    int32 action=1;
 }
