@@ -50,6 +50,7 @@ func Ws (c *gin.Context) {
 			log.Println("Frontend client disconnected:", err)
 			break
 		}
+		
 		var Tick database.TradeInfo
 		err=json.Unmarshal(message,&Tick)
 		if err!=nil{

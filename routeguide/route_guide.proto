@@ -1,0 +1,19 @@
+syntax="proto3";
+
+option go_package="ApexTrade/routeguide"; 
+package routeguide;
+
+service RouteGuide{
+    rpc SendData(stream inputData) returns (stream outputData);
+}
+
+message inputData{
+    int64 ID=1;
+    string EventType=2;
+    string Price =3;
+    string Quantity=4;
+}
+
+message outputData{
+    string action=1;
+}

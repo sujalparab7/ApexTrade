@@ -2,7 +2,6 @@ package database
 
 import (
 	"log"
-
 	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 )
@@ -11,7 +10,7 @@ var DB *gorm.DB
 
 type TradeInfo struct {
 	ID        int    `gorm:"primaryKey"`
-	EventType string `json:"e" gorm:"-"` // Shield to catch "trade", but ignored by DB!
+	EventType string `json:"e" gorm:"-"`//This will be ignored by gorm ,here to just take the input  
 	EventTime int64  `json:"E"`
 	Price     string `json:"p"`
 	Quantity  string `json:"q"`
