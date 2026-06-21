@@ -91,7 +91,7 @@ func (x *InputData) GetQuantity() string {
 
 type OutputData struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Action        string                 `protobuf:"bytes,1,opt,name=action,proto3" json:"action,omitempty"`
+	Action        int32                  `protobuf:"varint,1,opt,name=action,proto3" json:"action,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -126,11 +126,11 @@ func (*OutputData) Descriptor() ([]byte, []int) {
 	return file_routeguide_route_guide_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *OutputData) GetAction() string {
+func (x *OutputData) GetAction() int32 {
 	if x != nil {
 		return x.Action
 	}
-	return ""
+	return 0
 }
 
 var File_routeguide_route_guide_proto protoreflect.FileDescriptor
@@ -146,7 +146,7 @@ const file_routeguide_route_guide_proto_rawDesc = "" +
 	"\bQuantity\x18\x04 \x01(\tR\bQuantity\"$\n" +
 	"\n" +
 	"outputData\x12\x16\n" +
-	"\x06action\x18\x01 \x01(\tR\x06action2K\n" +
+	"\x06action\x18\x01 \x01(\x05R\x06action2K\n" +
 	"\n" +
 	"RouteGuide\x12=\n" +
 	"\bSendData\x12\x15.routeguide.inputData\x1a\x16.routeguide.outputData(\x010\x01B\x16Z\x14ApexTrade/routeguideb\x06proto3"

@@ -5,7 +5,7 @@ import warnings
 
 from routeguide import route_guide_pb2 as routeguide_dot_route__guide__pb2
 
-GRPC_GENERATED_VERSION = '1.81.1'
+GRPC_GENERATED_VERSION = '1.66.2'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
@@ -18,14 +18,14 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in routeguide/route_guide_pb2_grpc.py depends on'
+        + f' but the generated code in routeguide/route_guide_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class RouteGuideStub:
+class RouteGuideStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -41,7 +41,7 @@ class RouteGuideStub:
                 _registered_method=True)
 
 
-class RouteGuideServicer:
+class RouteGuideServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def SendData(self, request_iterator, context):
@@ -66,7 +66,7 @@ def add_RouteGuideServicer_to_server(servicer, server):
 
 
  # This class is part of an EXPERIMENTAL API.
-class RouteGuide:
+class RouteGuide(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
