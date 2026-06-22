@@ -61,10 +61,10 @@ class TradePredictorServicer(route_guide_pb2_grpc.RouteGuideServicer):
             # 4. Basic Algorithmic Logic (Temporary ML Substitute)
             action_code = 3 # Default to HOLD
             
-            if rsi < 49.5:
+            if rsi < 30:
                 action_code = 1 # BUY (Oversold)
                 print(f"[BUY SIGNAL] RSI: {rsi:.2f} | SMA: {sma:.2f} | Price: {price}")
-            elif rsi > 50.5:
+            elif rsi > 70:
                 action_code = 2 # SELL (Overbought)
                 print(f"[SELL SIGNAL] RSI: {rsi:.2f} | SMA: {sma:.2f} | Price: {price}")
             else:

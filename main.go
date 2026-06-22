@@ -66,7 +66,7 @@ func startAIIngestionPipeline(){
 				Action:    response.GetAction(),
 			}
 
-			Websocket.Broadcast <- payload
+			Websocket.EngineHub.Broadcast <- payload
 			log.Printf("AI Action Code: %d | Pushed to WS Broadcast Channel", response.GetAction())	
 		}
 	}()
@@ -118,12 +118,6 @@ func main(){
 	database.ConnectDB()
 	go startAIIngestionPipeline()
 	r:=gin.Default()
-	r.LoadHTMLFiles("index.html")
-
-	r.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
-	})
-
 	r.GET("/ws", Websocket.Ws)
 	r.POST("/api/manual-trade", func(c *gin.Context) {
 		var req struct {
