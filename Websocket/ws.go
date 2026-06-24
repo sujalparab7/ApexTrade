@@ -27,7 +27,6 @@ type Hub struct {
 	unregister chan *Client
 }
 
-// Global instance of the routing hub
 var EngineHub = Hub{
 	Broadcast:  make(chan interface{}),
 	register:   make(chan *Client),
@@ -39,7 +38,6 @@ func init() {
 	go EngineHub.run()
 }
 
-// 3. The Core Router (No Mutexes Required)
 func (h *Hub) run() {
 	for {
 		select {
@@ -51,7 +49,6 @@ func (h *Hub) run() {
 				close(client.send)
 			}
 		case message := <-h.Broadcast:
-			// Instantly push data to every client's memory buffer
 			for client := range h.clients {
 				select {
 				case client.send <- message:
@@ -72,11 +69,9 @@ func (c *Client) writePump() {
 	for {
 		msg, ok := <-c.send
 		if !ok {
-			// The Hub closed the channel
 			return
 		}
 
-		// Enforce a strict network timeout
 		c.conn.SetWriteDeadline(time.Now().Add(10 * time.Second))
 		err := c.conn.WriteJSON(msg)
 		if err != nil {
@@ -92,11 +87,9 @@ func Ws(c *gin.Context) {
 		return
 	}
 
-	// Give the client a buffered channel (size 256) to absorb micro-bursts of Binance ticks
 	client := &Client{conn: ws, send: make(chan interface{}, 256)}
 	EngineHub.register <- client
 
-	// Spin up the dedicated network writer for this specific connection
 	go client.writePump()
 
 	log.Println("New client connected to the optimized broadcast stream")

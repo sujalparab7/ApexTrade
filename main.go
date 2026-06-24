@@ -5,9 +5,9 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"net/http"
 	"ApexTrade/Websocket"
 	"ApexTrade/database"
+	"ApexTrade/handlers"
 	"ApexTrade/routeguide"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -119,25 +119,7 @@ func main(){
 	go startAIIngestionPipeline()
 	r:=gin.Default()
 	r.GET("/ws", Websocket.Ws)
-	r.POST("/api/manual-trade", func(c *gin.Context) {
-		var req struct {
-			Action string  `json:"action"`
-			Price  float64 `json:"price"`
-		}
-		
-		if err := c.ShouldBindJSON(&req); err == nil {
-			database.DB.Create(&database.TradeInfo{
-				EventTime: time.Now(),
-				Price:     fmt.Sprintf("%f", req.Price),
-				Action:    req.Action,
-				Source:    "MANUAL_USER",
-			})
-			fmt.Printf("User executed manual %s at %f\n", req.Action, req.Price)
-			c.JSON(http.StatusOK, gin.H{"status": "success"})
-		} else {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid payload"})
-		}
-	})
+	r.POST("/api/manual-trade",handlers.TradeHandler)
 	fmt.Println("Gin server running on port 8080")
 	r.Run(":8080")
 }
